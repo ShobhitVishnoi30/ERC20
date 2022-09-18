@@ -97,6 +97,13 @@ async function Testing() {
         testERC20.connect(user2).transferFrom(user1.address, user3.address, 51)
       ).to.be.revertedWith("ERC20: insufficient allowance");
     });
+
+    it("user should be able to burn tokens", async function () {
+      expect(await testERC20.balanceOf(user1.address)).to.equal("999999999850");
+      await testERC20.connect(user1).burn(100);
+
+      expect(await testERC20.balanceOf(user1.address)).to.equal("999999999750");
+    });
   });
 }
 
